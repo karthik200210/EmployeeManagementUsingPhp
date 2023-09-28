@@ -31,28 +31,9 @@
     <div class="container ">
         <div class="maincontent">
             <!-- side bar -->
-
-            <div class="side-bar">
-                <div class="title">
-                    Employee
-                    <p>Management</p>
-                </div>
-                <hr>
-                <div class="side-menu-list">
-                    <ul class="side-menu-items">
-                        <li><a href="#"><i class="material-symbols-outlined">home</i>Dashboard</a></li>
-                        <li><a href="#"><i class="material-symbols-outlined">bar_chart</i>Employees</a></li>
-                        <li><a href="#"><i class="material-symbols-outlined">person</i>My Profile</a></li>
-                        <li><a href="#"><i class="material-symbols-outlined">logout</i>Logout</a></li>
-                    </ul>
-                </div>
-                <hr>
-                <div class="sitelogo">
-                    Powered by
-                    <img src="assets/brandlogo.png">
-                </div>
-            </div>
-
+            <?php
+                include('./includes/sidebar.php');
+            ?>
             <!-- end of side bar -->
 
 
@@ -166,6 +147,27 @@
 
                         <tbody class="tbody" id="employeetablebody">
 
+                        <!-- <tr class="emp-column">
+                <td>${(i + 1)}</td>
+                <td> <img class="profile-img" src='http://localhost:3000/employees/${employee.id}/avatar'>${employee.firstName + " " + employee.lastName}</td>
+                <td>${employee.email}</td>
+                <td>${employee.phone}</td>
+                <td>${employee.gender}</td>
+                <td>${employee.dob}</td>
+                <td>${employee.country}</td>
+                <td>
+                <button class="dot material-symbols-outlined" id="dot-menu" onclick=openMenu('${employee.id}')>
+                        more_horiz
+                    </button>
+                     3 dot dropdown menu -->
+                     <!-- <div class="dropdown-content" id="dropdown-content-menu">
+                   
+                    </div> -->
+                    <!-- end of 3 dot dropdown menu -->
+                <!-- </td>
+                
+                
+                </tr>`; --> 
                         </tbody>
                     </table>
                     <!-- end of table items -->
@@ -183,19 +185,23 @@
                 </div>
                 <!-- end of pagination -->
                 <!-- <hr style=" color: 1px solid #D3D8E2;padding-bottom: 10px;"> -->
-                <footer class="terms-and-condition">
+                <!-- <footer class="terms-and-condition">
                     <div class="copyright-txt">© 2023 All Rights Reserved. Stackup</div>
                     <div class="others">
                         <div class="terms-text">Terms</div>
                         <div class="privacy-text">Privacy Policy</div>
                     </div>
-                </footer>
+                </footer> -->
+                <?php
+                include('./includes/footer.php');
+                ?>
+                
             </div>
         </div>
 
         <!-- add employee form -->
 
-        <div class="employee-form" id="emp-form">
+        <form class="employee-form" id="emp-form" method="POST">
 
             <div class="form-contents">
                 <div class="custom-form">
@@ -478,7 +484,7 @@
                 </div>
             </div>
 
-        </div>
+        </form>
 
         <!-- end of employee form -->
 
@@ -846,4 +852,3 @@
 </body>
 
 </html>
-<!--    -->
