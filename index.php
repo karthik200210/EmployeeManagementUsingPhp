@@ -1,3 +1,7 @@
+<?php
+include "./includes/connection.php";
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -31,9 +35,11 @@
     <div class="container ">
         <div class="maincontent">
             <!-- side bar -->
+
             <?php
-                include('./includes/sidebar.php');
-            ?>
+            include "./includes/sidebar.php"
+                ?>
+
             <!-- end of side bar -->
 
 
@@ -146,28 +152,7 @@
                         </thead>
 
                         <tbody class="tbody" id="employeetablebody">
-
-                        <!-- <tr class="emp-column">
-                <td>${(i + 1)}</td>
-                <td> <img class="profile-img" src='http://localhost:3000/employees/${employee.id}/avatar'>${employee.firstName + " " + employee.lastName}</td>
-                <td>${employee.email}</td>
-                <td>${employee.phone}</td>
-                <td>${employee.gender}</td>
-                <td>${employee.dob}</td>
-                <td>${employee.country}</td>
-                <td>
-                <button class="dot material-symbols-outlined" id="dot-menu" onclick=openMenu('${employee.id}')>
-                        more_horiz
-                    </button>
-                     3 dot dropdown menu -->
-                     <!-- <div class="dropdown-content" id="dropdown-content-menu">
-                   
-                    </div> -->
-                    <!-- end of 3 dot dropdown menu -->
-                <!-- </td>
-                
-                
-                </tr>`; --> 
+                            <?php include "./includes/getemp.php" ?>
                         </tbody>
                     </table>
                     <!-- end of table items -->
@@ -185,305 +170,310 @@
                 </div>
                 <!-- end of pagination -->
                 <!-- <hr style=" color: 1px solid #D3D8E2;padding-bottom: 10px;"> -->
-                <!-- <footer class="terms-and-condition">
-                    <div class="copyright-txt">© 2023 All Rights Reserved. Stackup</div>
-                    <div class="others">
-                        <div class="terms-text">Terms</div>
-                        <div class="privacy-text">Privacy Policy</div>
-                    </div>
-                </footer> -->
-                <?php
-                include('./includes/footer.php');
-                ?>
-                
+                <?php include "./includes/footer.php" ?>
             </div>
         </div>
 
         <!-- add employee form -->
+        <form method="POST">
+            <div class="employee-form" id="emp-form">
 
-        <form class="employee-form" id="emp-form" method="POST">
+                <div class="form-contents">
+                    <div class="custom-form">
+                        <div class="contents">
+                            <div class="form-heading">
+                                <label class="form-heading">Add Employee</label>
+                                <button class="close" id="close_id"><i class="material-symbols-outlined closesymbol">
+                                        close
+                                    </i></button>
+                            </div>
 
-            <div class="form-contents">
-                <div class="custom-form">
-                    <div class="contents">
-                        <div class="form-heading">
-                            <label class="form-heading">Add Employee</label>
-                            <button class="close" id="close_id"><i class="material-symbols-outlined closesymbol">
-                                    close
-                                </i></button>
-                        </div>
-
-                        <div class="row upload-section">
-                            <label for="input-file" id="drop-area">
-                                <div class="col-md-12">
-                                    <input type="file" accept="image/*" id="input-file" class="upload_image" hidden
-                                        onchange="AddEmppreviewImage(event)">
-                                    <button class="change_btn Addchgbtn" onclick="AddempopenFileManager()"
-                                        id="changeButton" style="display: none;">Change</button>
-                                    <div class="upload align-items-center py-3 rounded-4" id="img-view">
-                                        <div class="upload-icon-image">
-                                            <img id="preview-image" src="assets/upload.png" alt="">
+                            <div class="row upload-section">
+                                <label for="input-file" id="drop-area">
+                                    <div class="col-md-12">
+                                        <input type="file" accept="image/*" id="input-file" class="upload_image" hidden
+                                            onchange="AddEmppreviewImage(event)">
+                                        <button class="change_btn Addchgbtn" onclick="AddempopenFileManager()"
+                                            id="changeButton" style="display: none;">Change</button>
+                                        <div class="upload align-items-center py-3 rounded-4" id="img-view">
+                                            <div class="upload-icon-image">
+                                                <img id="preview-image" src="assets/upload.png" alt="">
+                                            </div>
+                                            <p style="color:#4318FF">Upload image</p>
+                                            <div class="formattext">PNG, JPG files are allowed</div>
                                         </div>
-                                        <p style="color:#4318FF">Upload image</p>
-                                        <div class="formattext">PNG, JPG files are allowed</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- first input row -->
+                            <div class="row">
+                                <div class="form-group col-2 ">
+                                    <label for="salutation" class="required mb-3 textbox_head">Salutation</label>
+                                    <select class=" form-control form-select rounded-4 input_box " id="salutation"
+                                        name="salutation">
+                                        <option>Mr.</option>
+                                        <option>Mrs.</option>
+                                    </select>
+                                    <label for="errormessage" class="errormessage" id="errormessageSalutation">Select
+                                        one</label>
+
+
+                                </div>
+                                <div class="form-group col-5">
+                                    <label for="firstName" class="required mb-3 textbox_head">First Name</label>
+                                    <input type="text" class="input_box form-control rounded-4 mb-1" id="firstName"
+                                        name="firstName" placeholder="Enter your first name">
+                                    <label for="errormessage" class="errormessage" id="errormessageFirstname">Please
+                                        Enter
+                                        the First Name</label>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label for="lastName" class="required mb-3 textbox_head">Last Name</label>
+                                    <input type="text" class="input_box form-control rounded-4 mb-1" id="lastName"
+                                        name="lastName" placeholder="Enter your last name">
+                                    <label for="errormessage" class="errormessage" id="errormessageLastname">Please
+                                        Enter
+                                        the Last Name</label>
+                                </div>
+                            </div>
+                            <!-- end of first input row -->
+
+                            <!-- second input row -->
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="email" class="required mb-3 textbox_head">Email</label>
+                                    <input type="email" class="input_box form-control rounded-4 mb-1" id="email"
+                                        name="email" placeholder="Enter your email address">
+                                    <label for="errormessage" class="errormessage" id="errormessageEmail">Please Enter
+                                        the
+                                        Email</label>
+
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="number" class="required mb-3 textbox_head">Mobile Number</label>
+                                    <input type="text" class="input_box form-control rounded-4 mb-1" id="phone"
+                                        name="phone" placeholder="enter mobile number">
+                                    <label for="errormessage" class="errormessage" id="errormessagePhone">Please Enter
+                                        the
+                                        Mobile Number</label>
+
+                                </div>
+                            </div>
+                            <!-- end of second input row -->
+
+                            <!-- third input row -->
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="date" class="required textbox_head mb-3">Date of Birth</label>
+                                    <input type="date" class="input_box form-control rounded-4 mb-1" id="dateofbirth"
+                                        name="date">
+                                    <label for="errormessage" class="errormessage" id="errormessageDob">Please Select
+                                        date
+                                        of birth</label>
+
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="gender" class="required  textbox_head">Gender</label>
+                                    <div class="form-check mt-4 ">
+                                        <input class="form-check-input" type="radio" name="gender" id="male"
+                                            value="Male">
+
+                                        <label class="form-check-label textbox_head" for="Male">Male</label>
+
+                                        <label class="form-check-label textbox_head" for="Female">
+                                            <input class="form-check-input ms-2 me-2 " type="radio" name="gender"
+                                                id="female" value="Female">Female
+                                        </label>
+                                    </div>
+                                    <label for="errormessage" class="errormessage mt-4" id="errormessageGender">Please
+                                        select the gender</label>
+                                </div>
+                            </div>
+                            <!-- end of third input row -->
+
+                            <!-- fourth row -->
+                            <div class="row">
+                                <div class="form-group col ">
+                                    <label for="Address" class="required mb-1 textbox_head mb-3">Address</label>
+                                    <input type="textarea" class="input_box form-control rounded-4 mb-1" id="Address"
+                                        name="Address" placeholder="enter address">
+                                    <label for="errormessage" class="errormessage " id="errormessageAddress">Please
+                                        Enter
+                                        the Address</label>
+
+                                </div>
+                            </div>
+                            <!-- end of fourth row -->
+                            <!-- row for qualifcaations -->
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="Address" class="required mb-1 textbox_head mb-3">Qualifications</label>
+                                    <input type="text" class="input_box form-control rounded-4 mb-1" id="qualification"
+                                        name="Address" placeholder=" Enter Qualifications">
+                                    <label for="errormessage" class="errormessage "
+                                        id="errormessageQualifications">Please
+                                        Enter the Qualifications</label>
+
+                                </div>
+                            </div>
+                            <!-- end of row qualifuation -->
+
+                            <!-- fifth row -->
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="country" class="required textbox_head mb-3">Country</label>
+                                    <select class="input_box form-control form-select rounded-4 mb-1" id="country"
+                                        name="country">
+
+                                        <option>Select a country</option>
+                                        <option>United States</option>
+                                        <option>United Kingdom</option>
+                                        <option>France</option>
+                                        <option>India</option>
+                                        <option>Brazil</option>
+                                        <option>Australia</option>
+                                        <option>Canada</option>
+
+                                    </select>
+                                    <label for="errormessage" class="errormessage " id="errormessageCountry">Please
+                                        Select a
+                                        country</label>
+
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="state" class="required textbox_head mb-3">State</label>
+                                    <select class="input_box form-control form-select rounded-4 mb-1" id="state"
+                                        name="state">
+                                        <option>Select a state</option>
+                                        <option>New York City</option>
+                                        <option>Los Angeles</option>
+                                        <option>Chicago</option>
+                                        <option>Washington, D.C.</option>
+                                        <option>San Francisco</option>
+                                        <option>London</option>
+                                        <option>Manchester</option>
+                                        <option>Birmingham</option>
+                                        <option>Edinburgh</option>
+                                        <option>Liverpool</option>
+                                        <option>London</option>
+                                        <option>Manchester</option>
+                                        <option>Birmingham</option>
+                                        <option>Edinburgh</option>
+                                        <option>Liverpool</option>
+                                        <option>Berlin</option>
+                                        <option>Munich</option>
+                                        <option>Hamburg</option>
+                                        <option>Frankfurt</option>
+                                        <option>Cologne</option>
+                                        <option>New Delhi</option>
+                                        <option>Mumbai</option>
+                                        <option>Bangalore</option>
+                                        <option>Kolkata</option>
+                                        <option>Chennai</option>
+                                        <option>Sydney</option>
+                                        <option>Melbourne</option>
+                                        <option>Brisbane</option>
+                                        <option>Perth</option>
+                                        <option>Adelaide</option>
+
+                                    </select>
+                                    <label for="errormessage" class="errormessage " id="errormessageState">Please Select
+                                        a
+                                        state</label>
+
+                                </div>
+                            </div>
+                            <!-- end of fifth row -->
+
+                            <!-- sixth row -->
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="city" class="required textbox_head mb-3">City</label>
+                                    <select class="input_box form-control form-select rounded-4 mb-1" id="city"
+                                        name="city">
+                                        <option>Select a city</option>
+                                        <option>New Delhi</option>
+                                        <option>Delhi Cantt</option>
+                                        <option>South Delhi</option>
+                                        <option>North Delhi</option>
+                                        <option>East Delhi</option>
+                                        <option>Mumbai</option>
+                                        <option>Mumbai Suburban</option>
+                                        <option>Thane</option>
+                                        <option>Navi Mumbai</option>
+                                        <option>Kalyan</option>
+                                        <option>Bangalore</option>
+                                        <option>Electronic City</option>
+                                        <option>Whitefield</option>
+                                        <option>Jayanagar</option>
+                                        <option>Indiranagar</option>
+                                        <option>Chennai</option>
+                                        <option>Anna Nagar</option>
+                                        <option>T. Nagar</option>
+                                        <option>Velachery</option>
+                                        <option>Adyar</option>
+
+                                    </select>
+                                    <label for="errormessage" class="errormessage " id="errormessageCity">Please Select
+                                        a
+                                        city</label>
+
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="pincode" class="required textbox_head mb-3">Pin/Zip</label>
+                                    <input type="text" class="input_box form-control  rounded-4 mb-1" id="pincode"
+                                        name="pincode" placeholder="enter Pin/Zip">
+                                    <label for="errormessage" class="errormessage " id="errormessagePin">Please Enter
+                                        the
+                                        pincode</label>
+
+                                </div>
+                            </div>
+                            <!-- end of sixth row -->
+
+                            <!-- userid and password -->
+                            <!-- sixth row -->
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="city" class="required textbox_head mb-3">User Name</label>
+                                    <input type="text" class="input_box form-control  rounded-4 mb-1" id="user_name"
+                                        placeholder="Enter user name">
+                                    <label for="errormessage" class="errormessage " id="errormessageUsrname">Please
+                                        Enter
+                                        username</label>
+
+                                </div>
+                                <div class="form-group col-6  password">
+                                    <label for="password" class="required textbox_head mb-3">Password</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" class="input_box form-control rounded-4 mb-1"
+                                            id="password" name="password" placeholder="Enter Password">
+                                        <i class="material-symbols-outlined toggle-password"
+                                            id="togglePassword">visibility</i>
+                                    </div>
+                                    <label for="errormessage" class="errormessage " id="errormessagePass">Please Enter
+                                        password</label>
+
+                                </div>
+                            </div>
+                            <!-- end of user id and password -->
+
+                            <!-- submit cancel buttoon -->
+                            <div class=" row  ">
+                                <div class="final_submit  mb-3  p-3 col bg-white rounded-3  ">
+                                    <div class="contents_submit ">
+                                        <button class="final_abort" id="close_addempfrmbtn">Cancel</button>
+                                        <button class="submission" type="submit" id="addNewEmp">Add Employee</button>
                                     </div>
                                 </div>
-                            </label>
+                            </div>
+                            <!--  endsubmit button -->
                         </div>
-
-                        <!-- first input row -->
-                        <div class="row">
-                            <div class="form-group col-2 ">
-                                <label for="salutation" class="required mb-3 textbox_head">Salutation</label>
-                                <select class=" form-control form-select rounded-4 input_box " id="salutation"
-                                    name="salutation">
-                                    <option>Mr.</option>
-                                    <option>Mrs.</option>
-                                </select>
-                                <label for="errormessage" class="errormessage" id="errormessageSalutation">Select
-                                    one</label>
-
-
-                            </div>
-                            <div class="form-group col-5">
-                                <label for="firstName" class="required mb-3 textbox_head">First Name</label>
-                                <input type="text" class="input_box form-control rounded-4 mb-1" id="firstName"
-                                    name="firstName" placeholder="Enter your first name">
-                                <label for="errormessage" class="errormessage" id="errormessageFirstname">Please Enter
-                                    the First Name</label>
-                            </div>
-                            <div class="form-group col-5">
-                                <label for="lastName" class="required mb-3 textbox_head">Last Name</label>
-                                <input type="text" class="input_box form-control rounded-4 mb-1" id="lastName"
-                                    name="lastName" placeholder="Enter your last name">
-                                <label for="errormessage" class="errormessage" id="errormessageLastname">Please Enter
-                                    the Last Name</label>
-                            </div>
-                        </div>
-                        <!-- end of first input row -->
-
-                        <!-- second input row -->
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="email" class="required mb-3 textbox_head">Email</label>
-                                <input type="email" class="input_box form-control rounded-4 mb-1" id="email"
-                                    name="email" placeholder="Enter your email address">
-                                <label for="errormessage" class="errormessage" id="errormessageEmail">Please Enter the
-                                    Email</label>
-
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="number" class="required mb-3 textbox_head">Mobile Number</label>
-                                <input type="text" class="input_box form-control rounded-4 mb-1" id="phone" name="phone"
-                                    placeholder="enter mobile number">
-                                <label for="errormessage" class="errormessage" id="errormessagePhone">Please Enter the
-                                    Mobile Number</label>
-
-                            </div>
-                        </div>
-                        <!-- end of second input row -->
-
-                        <!-- third input row -->
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="date" class="required textbox_head mb-3">Date of Birth</label>
-                                <input type="date" class="input_box form-control rounded-4 mb-1" id="dateofbirth"
-                                    name="date">
-                                <label for="errormessage" class="errormessage" id="errormessageDob">Please Select date
-                                    of birth</label>
-
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="gender" class="required  textbox_head">Gender</label>
-                                <div class="form-check mt-4 ">
-                                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
-
-                                    <label class="form-check-label textbox_head" for="Male">Male</label>
-
-                                    <label class="form-check-label textbox_head" for="Female">
-                                        <input class="form-check-input ms-2 me-2 " type="radio" name="gender"
-                                            id="female" value="Female">Female
-                                    </label>
-                                </div>
-                                <label for="errormessage" class="errormessage mt-4" id="errormessageGender">Please
-                                    select the gender</label>
-                            </div>
-                        </div>
-                        <!-- end of third input row -->
-
-                        <!-- fourth row -->
-                        <div class="row">
-                            <div class="form-group col ">
-                                <label for="Address" class="required mb-1 textbox_head mb-3">Address</label>
-                                <input type="textarea" class="input_box form-control rounded-4 mb-1" id="Address"
-                                    name="Address" placeholder="enter address">
-                                <label for="errormessage" class="errormessage " id="errormessageAddress">Please Enter
-                                    the Address</label>
-
-                            </div>
-                        </div>
-                        <!-- end of fourth row -->
-                        <!-- row for qualifcaations -->
-                        <div class="row">
-                            <div class="form-group col">
-                                <label for="Address" class="required mb-1 textbox_head mb-3">Qualifications</label>
-                                <input type="text" class="input_box form-control rounded-4 mb-1" id="qualification"
-                                    name="Address" placeholder=" Enter Qualifications">
-                                <label for="errormessage" class="errormessage " id="errormessageQualifications">Please
-                                    Enter the Qualifications</label>
-
-                            </div>
-                        </div>
-                        <!-- end of row qualifuation -->
-
-                        <!-- fifth row -->
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="country" class="required textbox_head mb-3">Country</label>
-                                <select class="input_box form-control form-select rounded-4 mb-1" id="country"
-                                    name="country">
-
-                                    <option>Select a country</option>
-                                    <option>United States</option>
-                                    <option>United Kingdom</option>
-                                    <option>France</option>
-                                    <option>India</option>
-                                    <option>Brazil</option>
-                                    <option>Australia</option>
-                                    <option>Canada</option>
-
-                                </select>
-                                <label for="errormessage" class="errormessage " id="errormessageCountry">Please Select a
-                                    country</label>
-
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="state" class="required textbox_head mb-3">State</label>
-                                <select class="input_box form-control form-select rounded-4 mb-1" id="state"
-                                    name="state">
-                                    <option>Select a state</option>
-                                    <option>New York City</option>
-                                    <option>Los Angeles</option>
-                                    <option>Chicago</option>
-                                    <option>Washington, D.C.</option>
-                                    <option>San Francisco</option>
-                                    <option>London</option>
-                                    <option>Manchester</option>
-                                    <option>Birmingham</option>
-                                    <option>Edinburgh</option>
-                                    <option>Liverpool</option>
-                                    <option>London</option>
-                                    <option>Manchester</option>
-                                    <option>Birmingham</option>
-                                    <option>Edinburgh</option>
-                                    <option>Liverpool</option>
-                                    <option>Berlin</option>
-                                    <option>Munich</option>
-                                    <option>Hamburg</option>
-                                    <option>Frankfurt</option>
-                                    <option>Cologne</option>
-                                    <option>New Delhi</option>
-                                    <option>Mumbai</option>
-                                    <option>Bangalore</option>
-                                    <option>Kolkata</option>
-                                    <option>Chennai</option>
-                                    <option>Sydney</option>
-                                    <option>Melbourne</option>
-                                    <option>Brisbane</option>
-                                    <option>Perth</option>
-                                    <option>Adelaide</option>
-
-                                </select>
-                                <label for="errormessage" class="errormessage " id="errormessageState">Please Select a
-                                    state</label>
-
-                            </div>
-                        </div>
-                        <!-- end of fifth row -->
-
-                        <!-- sixth row -->
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="city" class="required textbox_head mb-3">City</label>
-                                <select class="input_box form-control form-select rounded-4 mb-1" id="city" name="city">
-                                    <option>Select a city</option>
-                                    <option>New Delhi</option>
-                                    <option>Delhi Cantt</option>
-                                    <option>South Delhi</option>
-                                    <option>North Delhi</option>
-                                    <option>East Delhi</option>
-                                    <option>Mumbai</option>
-                                    <option>Mumbai Suburban</option>
-                                    <option>Thane</option>
-                                    <option>Navi Mumbai</option>
-                                    <option>Kalyan</option>
-                                    <option>Bangalore</option>
-                                    <option>Electronic City</option>
-                                    <option>Whitefield</option>
-                                    <option>Jayanagar</option>
-                                    <option>Indiranagar</option>
-                                    <option>Chennai</option>
-                                    <option>Anna Nagar</option>
-                                    <option>T. Nagar</option>
-                                    <option>Velachery</option>
-                                    <option>Adyar</option>
-
-                                </select>
-                                <label for="errormessage" class="errormessage " id="errormessageCity">Please Select a
-                                    city</label>
-
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="pincode" class="required textbox_head mb-3">Pin/Zip</label>
-                                <input type="text" class="input_box form-control  rounded-4 mb-1" id="pincode"
-                                    name="pincode" placeholder="enter Pin/Zip">
-                                <label for="errormessage" class="errormessage " id="errormessagePin">Please Enter the
-                                    pincode</label>
-
-                            </div>
-                        </div>
-                        <!-- end of sixth row -->
-
-                        <!-- userid and password -->
-                        <!-- sixth row -->
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label for="city" class="required textbox_head mb-3">User Name</label>
-                                <input type="text" class="input_box form-control  rounded-4 mb-1" id="user_name"
-                                    placeholder="Enter user name">
-                                <label for="errormessage" class="errormessage " id="errormessageUsrname">Please Enter
-                                    username</label>
-
-                            </div>
-                            <div class="form-group col-6  password">
-                                <label for="password" class="required textbox_head mb-3">Password</label>
-                                <div class="password-input-wrapper">
-                                    <input type="password" class="input_box form-control rounded-4 mb-1" id="password"
-                                        name="password" placeholder="Enter Password">
-                                    <i class="material-symbols-outlined toggle-password"
-                                        id="togglePassword">visibility</i>
-                                </div>
-                                <label for="errormessage" class="errormessage " id="errormessagePass">Please Enter
-                                    password</label>
-
-                            </div>
-                        </div>
-                        <!-- end of user id and password -->
-
-                        <!-- submit cancel buttoon -->
-                        <div class=" row  ">
-                            <div class="final_submit  mb-3  p-3 col bg-white rounded-3  ">
-                                <div class="contents_submit ">
-                                    <button class="final_abort" id="close_addempfrmbtn">Cancel</button>
-                                    <button class="submission" type="submit" id="addNewEmp">Add Employee</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!--  endsubmit button -->
                     </div>
                 </div>
-            </div>
 
+            </div>
         </form>
 
         <!-- end of employee form -->
@@ -852,3 +842,4 @@
 </body>
 
 </html>
+<!--    -->
