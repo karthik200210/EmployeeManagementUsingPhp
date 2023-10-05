@@ -175,7 +175,7 @@ include "./includes/connection.php";
         </div>
 
         <!-- add employee form -->
-        <form method="POST">
+        <form method="POST" action="./includes/postemp.php">
             <div class="employee-form" id="emp-form">
 
                 <div class="form-contents">
